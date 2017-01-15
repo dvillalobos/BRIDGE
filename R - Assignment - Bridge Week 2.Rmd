@@ -1,0 +1,78 @@
+---
+title: "R Bridge Week 2 Assignment"
+author: "Duubar Villalobos"
+date: "January 15, 2017"
+output: html_document
+---
+
+#One of the challenges in working with data is wrangling.  In this assignment we will use R to perform this task.
+
+#Here is a list of data sets:  
+#http://vincentarelbundock.github.io/Rdatasets/ (click on the csv index for a list)
+
+#Method 1  --- Download File
+getwd()
+setwd("C:/Users/mydvtech/Documents/GitHub/CUNY-Bridge/R")
+airquality <- read.csv("airquality.csv", header = TRUE)
+airquality
+
+# Method 2  --- Internet File
+
+airquality <- read.csv(url("http://vincentarelbundock.github.io/Rdatasets/csv/datasets/airquality.csv"), header = TRUE)
+airquality
+airquality <- data.frame(airquality)
+
+
+#1. Use the summary function to gain an overview of the data set. Then display the mean and median for at least two attributes.
+
+#Summary Function
+summary(airquality)
+
+#Returning Mean and Medican
+median(airquality$Wind)
+mean(airquality$Wind)
+median(airquality$Temp)
+mean(airquality$Temp)
+
+#2. Create a new data frame with a subset of the columns and rows. Make sure to rename it.
+
+# Subset filtering process by Temp > 80 and Wind > 10; Reporting Month, Day, Temperature and Wind
+airqualitysubsetframe <- data.frame(subset(airquality, Temp > 80 & Wind >10,  select = c(Wind, Temp, Month, Day)))
+airqualitysubsetframe
+
+#3. Create new column names for the new data frame.
+
+airqualitysubsetframe <- setNames(airqualitysubsetframe, c("Wind Speed", "Temperature", "Month", "Day"))
+airqualitysubsetframe
+
+#4. Use the summary function to create an overview of your new data frame.
+#The print the mean and median for the same two attributes. Please compare.
+
+#Summary Function
+summary(airqualitysubsetframe)
+
+#Returning Mean and Medican
+median(airqualitysubsetframe$Wind)
+mean(airqualitysubsetframe$Wind)
+median(airqualitysubsetframe$Temperature)
+mean(airqualitysubsetframe$Temperature)
+
+
+#By Comparing, we can deduct that the subset frame has a new mean and median for the new data,
+#providing new information when the Temperature is more than 80 and Wind > 10.
+
+#5. For at least 3 values in a column please rename so that every value in that column is renamed.
+#For example, suppose I have 20 values of the letter “e” in one column. Rename those values so that all 20 would show as “excellent”.
+
+
+airquality$Month[airquality$Month == 5 & airquality$Day < 10] <- 1
+airquality$Ozone[is.na(airquality$Ozone)] <- 0
+airquality
+
+#6. Display enough rows to see examples of all of steps 1-5 above.
+
+#Done
+
+#7. BONUS – place the original .csv in a github file and have R read from the link. This will be a very useful skill as you progress in your data science education and career.
+
+#Done
